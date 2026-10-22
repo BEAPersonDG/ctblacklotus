@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLACK LOTUS — Design System &amp; Catalog</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23101010'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-weight='700' fill='%23EFEDE8' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bone: #EFEDE8;
+      --ink: #101010;
+      --mid: #8A8781;
+      --line: rgba(16, 16, 16, .14);
+      --nav: 96px;
+      --sand: #DCD9D3;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--bone);
+      color: var(--ink);
+      font: 400 15px/1.6 Archivo, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 clamp(18px, 3.4vw, 44px); }
+
+    /* Top Catalog Bar */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(239, 237, 232, .94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      height: var(--nav);
+    }
+    nav .bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      height: 100%;
+    }
+    nav ul {
+      display: flex;
+      gap: 26px;
+      list-style: none;
+    }
+    nav ul a {
+      font: 500 11px/1 Archivo, sans-serif;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      position: relative;
+      padding: 6px 0;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    nav ul a::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .4s cubic-bezier(.6, 0, .2, 1);
+    }
+    nav ul a:hover::after, nav ul a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    nav .mk {
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: .26em;
+      text-align: center;
+      padding-left: .26em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav .mk-emblem {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--bone);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    nav .util {
+      display: flex;
+      gap: 20px;
+      justify-content: flex-end;
+      align-items: center;
+      font: 500 11px/1 Archivo, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .badge-ds {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 500 10px/1 Archivo, sans-serif;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+    }
+    .badge-ds i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #101010;
+      display: inline-block;
+    }
+
+    #viewport-container {
+      width: 100%;
+      height: calc(100vh - var(--nav));
+      position: relative;
+      overflow: hidden;
+    }
+
+    #frame-overview {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Components View */
+    #view-components {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 60px 0 100px;
+      background: var(--bone);
+    }
+
+    .comp-section {
+      margin-bottom: 70px;
+    }
+
+    .comp-title {
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .comp-h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 240px 1fr 120px;
+      gap: 30px;
+      align-items: baseline;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .type-role {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--mid);
+    }
+    .type-size {
+      text-align: right;
+      font-size: 13px;
+      color: var(--mid);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Color swatches */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .color-card {
+      border: 1px solid var(--line);
+      background: #FFF;
+      padding: 16px;
+    }
+    .swatch {
+      height: 90px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .color-label {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .color-val {
+      font-size: 12px;
+      color: var(--mid);
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <nav>
+    <div class="wrap bar">
+      <ul>
+        <li><a href="#overview" class="active" id="tab-overview" onclick="switchTab('overview')">Overview</a></li>
+        <li><a href="#components" id="tab-components" onclick="switchTab('components')">Components</a></li>
+      </ul>
+
+      <div class="mk">
+        <span class="mk-emblem">柔</span>
+        BLACK LOTUS
+      </div>
+
+      <div class="util">
+        <a href="index.html" target="_blank" class="badge-ds"><i></i> Abrir Site Completo &nearr;</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- VIEWPORT CONTAINER -->
+  <div id="viewport-container">
+    <iframe id="frame-overview" src="index.html" title="Black Lotus Jiu Jitsu Overview"></iframe>
+    
+    <div id="view-components">
+      <div class="wrap">
+        
+        <!-- SECTION 1: TYPOGRAPHY -->
+        <section class="comp-section">
+          <div class="comp-title">01 · Fundamentos</div>
+          <h2 class="comp-h2">Tipografia (Archivo)</h2>
+          
+          <div class="type-row">
+            <div class="type-role">Hero Wordmark · 900</div>
+            <div style="font-size: 64px; font-weight: 900; line-height: .9; letter-spacing: -.02em">BLACK LOTUS</div>
+            <div class="type-size">68px - 240px</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-role">Heading 1 · 800</div>
+            <div style="font-size: 42px; font-weight: 800; line-height: .95; text-transform: uppercase">Mente serena, alavanca perfeita.</div>
+            <div class="type-size">38px - 84px</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-role">Heading 2 · 800</div>
+            <div style="font-size: 28px; font-weight: 800; text-transform: uppercase">Programas de Treinamento</div>
+            <div class="type-size">26px - 44px</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-role">Labels &amp; Eyebrows · 500</div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase">O Princípio Jūjutsu · Arte Suave</div>
+            <div class="type-size">10.5px</div>
+          </div>
+
+          <div class="type-row">
+            <div class="type-role">Corpo de Texto · 400</div>
+            <div style="font-size: 15px; max-width: 50ch; line-height: 1.65">O kanji Jū (柔) traduz-se como suavidade e adaptabilidade. No tatame da Black Lotus, a técnica precisa prevalece sobre qualquer força física bruta.</div>
+            <div class="type-size">15px</div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: PALETTE -->
+        <section class="comp-section">
+          <div class="comp-title">02 · Paleta de Cores</div>
+          <h2 class="comp-h2">Cores Monocromáticas de Alto Padrão</h2>
+          
+          <div class="color-grid">
+            <div class="color-card">
+              <div class="swatch" style="background:#EFEDE8"></div>
+              <div class="color-label">Bone (Superfície Base)</div>
+              <div class="color-val">#EFEDE8</div>
+            </div>
+
+            <div class="color-card">
+              <div class="swatch" style="background:#101010"></div>
+              <div class="color-label">Obsidian Ink (Contraste Máximo)</div>
+              <div class="color-val">#101010</div>
+            </div>
+
+            <div class="color-card">
+              <div class="swatch" style="background:#DCD9D3"></div>
+              <div class="color-label">Sand Warm (Split Highlight)</div>
+              <div class="color-val">#DCD9D3</div>
+            </div>
+
+            <div class="color-card">
+              <div class="swatch" style="background:#8A8781"></div>
+              <div class="color-label">Stone Mid (Textos Secundários)</div>
+              <div class="color-val">#8A8781</div>
+            </div>
+
+            <div class="color-card">
+              <div class="swatch" style="background:#E4E1DC"></div>
+              <div class="color-label">Light Accent (Cards &amp; Placeholders)</div>
+              <div class="color-val">#E4E1DC</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: BOTÕES & INTERAÇÕES -->
+        <section class="comp-section">
+          <div class="comp-title">03 · Componentes Interativos</div>
+          <h2 class="comp-h2">Botões &amp; Ações</h2>
+          
+          <div style="display: flex; gap: 30px; align-items: center; padding: 30px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap">
+            <div>
+              <div style="font-size: 11px; color: var(--mid); margin-bottom: 10px; text-transform: uppercase">Botão Primário (Slide Up)</div>
+              <a href="index.html#agendar" target="_blank" style="display:inline-block; background:#101010; color:#EFEDE8; padding:16px 32px; font:500 11px/1 Archivo,sans-serif; letter-spacing:.2em; text-transform:uppercase">
+                Agendar 1 Semana Grátis
+              </a>
+            </div>
+
+            <div>
+              <div style="font-size: 11px; color: var(--mid); margin-bottom: 10px; text-transform: uppercase">Botão Linha (Underline Reveal)</div>
+              <a href="index.html#filosofia" target="_blank" style="font:500 11px/1 Archivo,sans-serif; letter-spacing:.2em; text-transform:uppercase; padding-bottom:5px; border-bottom:1px solid #101010">
+                Conhecer a Metodologia
+              </a>
+            </div>
+          </div>
+
+          <div style="margin-top: 36px; padding: 30px; border: 1px solid var(--line); background: rgba(255,255,255,.3);">
+            <div style="font-size: 11px; color: var(--mid); margin-bottom: 14px; text-transform: uppercase; font-weight: 600;">Specimen · Logo Split Interativo (Passe o mouse ou toque)</div>
+            <p style="font-size: 13px; color: var(--mid); margin-bottom: 24px;">O selo circular da Black Lotus divide-se ao meio no eixo vertical em resposta ao hover ou toque, revelando a tipografia e os metadados centrais com easing orgânico.</p>
+            <div style="display: flex; justify-content: center; align-items: center; min-height: 240px;">
+              <a href="index.html#hero" target="_blank" style="display: inline-flex; align-items: center; gap: 14px; font-weight: 800; font-size: 18px; text-transform: uppercase; letter-spacing: .12em; padding: 14px 28px; background: var(--ink); color: var(--bone);">
+                Ver Logo Interativo no Hero &rarr;
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      const tabOverview = document.getElementById('tab-overview');
+      const tabComponents = document.getElementById('tab-components');
+      const frameOverview = document.getElementById('frame-overview');
+      const viewComponents = document.getElementById('view-components');
+
+      if (tab === 'components') {
+        tabOverview.classList.remove('active');
+        tabComponents.classList.add('active');
+        frameOverview.style.display = 'none';
+        viewComponents.style.display = 'block';
+        window.location.hash = '#components';
+      } else {
+        tabOverview.classList.add('active');
+        tabComponents.classList.remove('active');
+        frameOverview.style.display = 'block';
+        viewComponents.style.display = 'none';
+        window.location.hash = '#overview';
+      }
+    }
+
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#components') {
+        switchTab('components');
+      } else {
+        switchTab('overview');
+      }
+    });
+
+    if (window.location.hash === '#components') {
+      switchTab('components');
+    }
+  </script>
+</body>
+</html>
